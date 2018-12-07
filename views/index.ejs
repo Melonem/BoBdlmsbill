@@ -1,49 +1,54 @@
 <html>
-	<head>
-		<title>BlackOut</title>
-		<link rel="stylesheet" href="https://naver.github.io/billboard.js/release/latest/dist/billboard.min.css">
-	</head>
-	<body>
-		<div id="XAxisTickFormat"></div>
 
-		    <script src="https://d3js.org/d3.v4.min.js"></script>
-		<script src="https://naver.github.io/billboard.js/release/latest/dist/billboard.min.js"></script>
-	
-		<script>
-			var xarray = ['x']
-			var samplearray = ['sample']
+<head>
+   <title>Bl4ck0ut</title>
+   <link rel="stylesheet" href="https://naver.github.io/billboard.js/release/latest/dist/billboard.min.css">
+</head>
 
-			<% for(var i = 0; i < data.length; i++) { %>
-				var date = new Date("<%= data[i].date %>")
-				xarray.push(date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() )
-			<% } %>
-			<% for(var i = 0; i < data.length; i++) { %>
-				samplearray.push("<%= data[i].data %>")
-			<% } %>
-			console.log(xarray)	
-		var chart = bb.generate({
-  data: {
-    x: "x",
-    xFormat: "%Y-%m-%d %H:%M:%S",
-    columns: [
-	xarray,
-	samplearray
-    ]
-  },
-  axis: {
-    x:{
-    tick:{ 
-        //format: function(x) {
-		// format string is also available for timeseries data
-		// format: "%Y"
-	//	return "%H:%M";
-       //}
-	format: "%Y"
-	}
-     }
-  },
-  bindto: "#XAxisTickFormat"
-});
-		</script>
-	</body>
+<body>
+   <div id="XAxisTickFormat"></div>
+
+   <script src="https://d3js.org/d3.v4.min.js"></script>
+   <script src="https://naver.github.io/billboard.js/release/latest/dist/billboard.min.js"></script>
+
+   <script>
+      var xarray = ['x']
+      var samplearray = ['Electronic Usage']
+
+      <% for(var i = 0; i < data.length; i++) { %>
+      var date = new Date("<%= data[i].date %>")
+      xarray.push(date)
+      // xarray.push(date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() +
+      //    ':' + date.getSeconds())
+      <% } %>
+      <% for(var i = 0; i < data.length; i++) { %>
+      samplearray.push("<%= data[i].data %>")
+      <% } %>
+      console.log(xarray)
+      var chart = bb.generate({
+         data: {
+            x: "x",
+            xFormat: "%Y-%m-%d %H:%M:%S",
+            columns: [
+               xarray,
+               samplearray
+            ]
+         },
+         axis: {
+            x: {
+               tick: {
+                  format: function (x) {
+                     // format string is also available for timeseries data
+                     // format: "%Y"
+                     return new Date(x).toTimeString();
+                  }
+
+               }
+            }
+         },
+         bindto: "#XAxisTickFormat"
+      });
+   </script>
+</body>
+
 </html>
